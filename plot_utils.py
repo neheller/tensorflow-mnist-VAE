@@ -118,7 +118,9 @@ class Plot_Manifold_Learning_Result():
         axes.set_xlim([-self.z_range-2, self.z_range+2])
         axes.set_ylim([-self.z_range-2, self.z_range+2])
         plt.grid(True)
-        plt.savefig(self.DIR + "/" + name)
+        fig_name = self.DIR + "/" + name
+        print(fig_name)
+        plt.savefig(fig_name)
 
 # borrowed from https://gist.github.com/jakevdp/91077b0cae40f8f8244a
 def discrete_cmap(N, base_cmap=None):

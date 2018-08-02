@@ -222,7 +222,7 @@ def main(args):
     z_in = tf.placeholder(tf.float32, shape=[None, dim_z], name='latent_variable')
 
     # network architecture
-    y, z, loss, neg_marginal_likelihood, KL_divergence = vae.autoencoder(x_hat, x, dim_img, dim_z, n_hidden, keep_prob)
+    y, z, loss, neg_marginal_likelihood, KL_divergence, mu = vae.autoencoder(x_hat, x, dim_img, dim_z, n_hidden, keep_prob)
 
     # optimization
     train_op = tf.train.AdamOptimizer(learn_rate).minimize(loss)
@@ -309,8 +309,9 @@ def main(args):
                     PMLR.save_images(y_PMLR_img, name="/PMLR_epoch_%02d" % (epoch) + ".jpg")
 
                     # plot distribution of labeled images
-                    z_PMLR = sess.run(z, feed_dict={x_hat: x_PMLR, keep_prob : 1})
-                    PMLR.save_scattered_image(z_PMLR,id_PMLR, name="/PMLR_map_epoch_%02d" % (epoch) + ".jpg")
+                    z_PMLR = sess.run(mu, feed_dict={x_hat: x_PMLR, keep_prob : 1})
+                    PMLR.save_scattered_image(z_PMLR,id_PMLR, name="PMLR_map_epoch_%02d" % (epoch) + ".jpg")
+                    np.save('encoded.npy', z_PMLR)
 
 if __name__ == '__main__':
 

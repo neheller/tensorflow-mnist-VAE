@@ -88,7 +88,7 @@ def autoencoder(x_hat, x, dim_img, dim_z, n_hidden, keep_prob):
 
     loss = -ELBO
 
-    return y, z, loss, -marginal_likelihood, KL_divergence
+    return y, z, loss, -marginal_likelihood, KL_divergence, mu
 
 def decoder(z, dim_img, n_hidden):
 
